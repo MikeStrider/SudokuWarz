@@ -44,20 +44,33 @@ namespace SudokuWarz2
             {
                 while (reader2.Read())
                 {
-                    if (reader2.GetSqlValue(1).ToString() == "1")
+                    if (reader2.GetSqlValue(1).ToString() == "1") // seat
                     {
                         lblSeat1.Text = reader2.GetSqlValue(0).ToString();
                     }
-                    if (reader2.GetSqlValue(1).ToString() == "2")
+                    if (reader2.GetSqlValue(1).ToString() == "2") // seat
                     {
                         lblSeat2.Text = reader2.GetSqlValue(0).ToString();
+                    }
+                    if (reader2.GetSqlValue(2).ToString() == "1") // yourTurn
+                    {
+                        if (lblSeat1.Text == lblusername.Text)
+                        {
+                            lblturn.Visible = true;
+                            Button5.Visible = true;
+                            lblnotMyTurn.Text = lblSeat2.Text;
+                        }
+                        else if (lblSeat2.Text == lblusername.Text)
+                        {
+                            lblturn.Visible = true;
+                            Button5.Visible = true;
+                            lblnotMyTurn.Text = lblSeat1.Text;
+                        }
+                        lblwhosTurn.Text = reader2.GetSqlValue(0).ToString();
                     }
                 }
             }
             reader2.Close();
-
-
-
         }
 
         protected void Timer1_Tick(object sender, EventArgs e)
@@ -72,13 +85,13 @@ namespace SudokuWarz2
             string CS = ConfigurationManager.ConnectionStrings["SudokuWarzConnectionString1"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(CS))
             {
-                SqlDataAdapter da3 = new SqlDataAdapter("INSERT INTO [Chat] ([name], [text]) VALUES ('" + lblusername.Text + "', @chatMessage)", conn);
+                SqlDataAdapter da3 = new SqlDataAdapter("INSERT INTO [Chat] ([name], [text], [datetime]) VALUES ('" + lblusername.Text + "', @chatMessage, '" + DateTime.Now.ToString() + "')", conn);
                 da3.SelectCommand.Parameters.AddWithValue("@chatMessage", TextBox3.Text);
                 DataSet ds3 = new DataSet();
                 da3.Fill(ds3);
             }
-            GridView1.DataSourceID = "SqlDataSource1";
             TextBox3.Text = "";
+            GridView1.DataSourceID = "SqlDataSource1";
             TextBox3.Focus();
         }
 
@@ -131,6 +144,20 @@ namespace SudokuWarz2
             {
                 Button4.Text = "Hide Users List";
                 ListBox1.Visible = true;
+            }
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            string CS = ConfigurationManager.ConnectionStrings["SudokuWarzConnectionString1"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(CS))
+            {
+                SqlDataAdapter da3 = new SqlDataAdapter("UPDATE Users SET [yourTurn] = 0 WHERE ([name] = '" + lblusername.Text + "');", conn);
+                DataSet ds3 = new DataSet();
+                da3.Fill(ds3);
+                SqlDataAdapter da2 = new SqlDataAdapter("UPDATE Users SET [yourTurn] = 1 WHERE ([name] = '" + lblnotMyTurn.Text + "');", conn);
+                DataSet ds2 = new DataSet();
+                da2.Fill(ds2);
             }
         }
     }

@@ -62,13 +62,16 @@
                             <td width="35%" align="right">Logged in as :
                                 <asp:Label ID="lblusername" runat="server" Text="Label" ForeColor="#CC6600"></asp:Label>
                                 <br />
-                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Log Out</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" TabIndex="1">Log Out</asp:LinkButton>
                             </td>
                         </tr>
                     </table>
                     <center>
-                    <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource2">
-                        <ItemTemplate>
+                      <table>
+                        <tr>
+                         <td>
+                        <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource2">
+                          <ItemTemplate>
                             <table border="1">
                                 <tr>
                                     <td width="20px">
@@ -111,17 +114,29 @@
                             </table>
                         </ItemTemplate>
                     </asp:DataList>
+                          </td>
+                          <td width="22px"></td>
+                           <td><asp:Label ID="lblwhosTurn" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Button ID="Button5" runat="server" Text="End Turn" OnClick="Button5_Click" Visible="False"></asp:Button><br />
+                               <asp:Label ID="lblnotMyTurn" runat="server" Text="Label"></asp:Label>
+                           </td>
+                         </tr>
+                      </table>
                         <br />
                         <table>
                             <tr>
                                 <td>
                                     Seat 1 : <asp:Label ID="lblSeat1" runat="server" Text="none" ForeColor="#CC6600"></asp:Label> <br />
-                                    <asp:Button ID="Button1" runat="server" Text="Sit Down" OnClick="Button1_Click"></asp:Button>
+                                    <asp:Button ID="Button1" runat="server" Text="Sit Down" OnClick="Button1_Click" TabIndex="2"></asp:Button>
                                 </td>
                                 <td width="22px"></td>
                                 <td>
                                     Seat 2 : <asp:Label ID="lblSeat2" runat="server" Text="none" ForeColor="#CC6600"></asp:Label> <br />
-                                    <asp:Button ID="Button3" runat="server" Text="Sit Down" OnClick="Button3_Click"></asp:Button>
+                                    <asp:Button ID="Button3" runat="server" Text="Sit Down" OnClick="Button3_Click" TabIndex="3"></asp:Button>
+                                </td>
+                                <td width="22px"></td>
+                                <td>
+                                    <asp:Label ID="lblturn" runat="server" Text="Its Your Turn" Font-Bold="True" Font-Size="X-Large" ForeColor="Red" Visible="False"></asp:Label>
                                 </td>
                             </tr>
                         </table>
@@ -136,16 +151,30 @@
         <div class="customRight">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False">
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">
+                        <AlternatingRowStyle BackColor="White" />
                         <Columns>
                             <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
+                            <asp:BoundField DataField="datetime" HeaderText="datetime" SortExpression="datetime">
+                                <ItemStyle Font-Size="Small" />
+                            </asp:BoundField>
                             <asp:BoundField DataField="text" HeaderText="text" SortExpression="text" />
                         </Columns>
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
                     <asp:Label ID="Label1" runat="server" Text="Label not refreshed yet"></asp:Label><br />
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SudokuWarzConnectionString1 %>"
                         ProviderName="<%$ ConnectionStrings:SudokuWarzConnectionString1.ProviderName %>"
-                        SelectCommand="SELECT [uniqueID], [name], [text] FROM [Chat] Order By uniqueID"></asp:SqlDataSource>
+                        SelectCommand="SELECT name, datetime, text FROM Chat ORDER BY uniqueID"></asp:SqlDataSource>
                     <br />
                     <asp:Timer ID="Timer1" runat="server" Interval="5000" OnTick="Timer1_Tick"></asp:Timer>
                 </ContentTemplate>
@@ -153,20 +182,18 @@
         </div>
 
         <div class="customBottom">
-            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <table width="100%">
-                        <tr>
-                            <td width="90%">
-                                <asp:TextBox ID="TextBox3" runat="server" Width="100%"></asp:TextBox>
-                            </td>
-                            <td width="10%">
-                                <asp:Button ID="Button2" runat="server" Text="Submit" OnClick="Button2_Click" Width="100%" />
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-            </asp:UpdatePanel>
+            <asp:Panel ID="Panel3" runat="server" DefaultButton="Button2">
+                <table width="100%">
+                    <tr>
+                        <td width="90%">
+                            <asp:TextBox ID="TextBox3" runat="server" Width="100%" TabIndex="5"></asp:TextBox>
+                        </td>
+                        <td width="10%">
+                            <asp:Button ID="Button2" runat="server" Text="Submit" OnClick="Button2_Click" Width="100%" TabIndex="6" />
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
         </div>
 
         <div class="customBottom2">
@@ -175,7 +202,7 @@
                     <table>
                         <tr>
                             <td>
-                                <asp:Button ID="Button4" runat="server" Text="Hide Users List" OnClick="Button4_Click" />
+                                <asp:Button ID="Button4" runat="server" Text="Hide Users List" OnClick="Button4_Click" TabIndex="4" />
                                 <asp:ListBox ID="ListBox1" runat="server" Height="110px" Width="268px"></asp:ListBox>
                             </td>
                         </tr>
