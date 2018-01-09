@@ -38,7 +38,7 @@
             height: 28px;
         }
 
-          .customBottom2 {
+        .customBottom2 {
             position: fixed;
             bottom: 30px;
             left: 0;
@@ -60,7 +60,7 @@
                                 <center><p>Sudoku Warz</p></center>
                             </td>
                             <td width="35%" align="right">Logged in as :
-                                <asp:Label ID="lblusername" runat="server" Text="Label"></asp:Label>
+                                <asp:Label ID="lblusername" runat="server" Text="Label" ForeColor="#CC6600"></asp:Label>
                                 <br />
                                 <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Log Out</asp:LinkButton>
                             </td>
@@ -115,12 +115,12 @@
                         <table>
                             <tr>
                                 <td>
-                                    Seat 1 : <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label> <br />
+                                    Seat 1 : <asp:Label ID="lblSeat1" runat="server" Text="none" ForeColor="#CC6600"></asp:Label> <br />
                                     <asp:Button ID="Button1" runat="server" Text="Sit Down" OnClick="Button1_Click"></asp:Button>
                                 </td>
                                 <td width="22px"></td>
                                 <td>
-                                    Seat 2 : <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label> <br />
+                                    Seat 2 : <asp:Label ID="lblSeat2" runat="server" Text="none" ForeColor="#CC6600"></asp:Label> <br />
                                     <asp:Button ID="Button3" runat="server" Text="Sit Down" OnClick="Button3_Click"></asp:Button>
                                 </td>
                             </tr>
@@ -136,14 +136,13 @@
         <div class="customRight">
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <asp:Label ID="Label1" runat="server" Text="Label not refreshed yet"></asp:Label>
-                    <br />
                     <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
                             <asp:BoundField DataField="text" HeaderText="text" SortExpression="text" />
                         </Columns>
                     </asp:GridView>
+                    <asp:Label ID="Label1" runat="server" Text="Label not refreshed yet"></asp:Label><br />
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SudokuWarzConnectionString1 %>"
                         ProviderName="<%$ ConnectionStrings:SudokuWarzConnectionString1.ProviderName %>"
                         SelectCommand="SELECT [uniqueID], [name], [text] FROM [Chat] Order By uniqueID"></asp:SqlDataSource>
@@ -173,9 +172,14 @@
         <div class="customBottom2">
             <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                 <ContentTemplate>
-
-                    <asp:ListBox ID="ListBox1" runat="server" Height="129px" Width="268px"></asp:ListBox>
-
+                    <table>
+                        <tr>
+                            <td>
+                                <asp:Button ID="Button4" runat="server" Text="Hide Users List" OnClick="Button4_Click" />
+                                <asp:ListBox ID="ListBox1" runat="server" Height="110px" Width="268px"></asp:ListBox>
+                            </td>
+                        </tr>
+                    </table>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

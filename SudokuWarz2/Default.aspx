@@ -22,7 +22,7 @@
                         <center><p>Sudoku Warz</p>
                     </td>
                     <td width ="35%" align="right">
-                        Logged in as : <asp:Label ID="lblusername" runat="server" Text="Label"></asp:Label>
+                        Logged in as : <asp:Label ID="lblusername" runat="server" Text="none" ForeColor="#CC6600"></asp:Label>
                     </td>
                 </tr>
             </table> <br /> <br />
