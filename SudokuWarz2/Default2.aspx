@@ -62,6 +62,7 @@
                             <td width="35%" align="right">Logged in as :
                                 <asp:Label ID="lblusername" runat="server" Text="Label" ForeColor="#CC6600"></asp:Label>
                                 <br />
+
                                 <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" TabIndex="1">Log Out</asp:LinkButton>
                             </td>
                         </tr>
@@ -70,45 +71,55 @@
                       <table>
                         <tr>
                          <td>
-                        <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource2">
+                        <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource2" OnItemDataBound="DataList1_ItemDataBound"
+                            OnSelectedIndexChanged="DataList1_SelectedIndexChanged">
                           <ItemTemplate>
                             <table border="1">
                                 <tr>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol1" runat="server" Text='<%# Eval("column1") %>' />
+                                        <asp:TextBox ID="txtcol1" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol2" runat="server" Text='<%# Eval("column2") %>' />
+                                        <asp:TextBox ID="txtcol2" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol3" runat="server" Text='<%# Eval("column3") %>' />
+                                        <asp:TextBox ID="txtcol3" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol4" runat="server" Text='<%# Eval("column4") %>' />
+                                        <asp:TextBox ID="txtcol4" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol5" runat="server" Text='<%# Eval("column5") %>' />
+                                        <asp:TextBox ID="txtcol5" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol6" runat="server" Text='<%# Eval("column6") %>' />
+                                        <asp:TextBox ID="txtcol6" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol7" runat="server" Text='<%# Eval("column7") %>' />
+                                         <asp:TextBox ID="txtcol7" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol8" runat="server" Text='<%# Eval("column8") %>' />
+                                        <asp:TextBox ID="txtcol8" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td width="20px">
+                                    <td width="30px">
                                         <center>
                                         <asp:Label ID="lblcol9" runat="server" Text='<%# Eval("column9") %>' />
+                                        <asp:TextBox ID="txtcol9" runat="server" Width="26px" Visible="false"></asp:TextBox>
                                     </td>
                                 </tr>
                             </table>
@@ -116,9 +127,9 @@
                     </asp:DataList>
                           </td>
                           <td width="22px"></td>
-                           <td><asp:Label ID="lblwhosTurn" runat="server" Text="Label"></asp:Label><br />
-                                    <asp:Button ID="Button5" runat="server" Text="End Turn" OnClick="Button5_Click" Visible="False"></asp:Button><br />
-                               <asp:Label ID="lblnotMyTurn" runat="server" Text="Label"></asp:Label>
+                           <td><br />Its Your Turn : <asp:Label ID="lblitsYourTurn" runat="server" Text="none" ForeColor="#CC6600"></asp:Label> <br />
+                                     <asp:Button ID="Button5" runat="server" Text="End Turn" OnClick="Button5_Click" Visible="False"></asp:Button> <br />
+                                     <asp:Button ID="Button6" runat="server" Text="Start Game" OnClick="Button6_Click" Visible="False"></asp:Button>
                            </td>
                          </tr>
                       </table>
